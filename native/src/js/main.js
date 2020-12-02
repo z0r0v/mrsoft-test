@@ -1,15 +1,30 @@
 import Api from "./api.js";
-const api = new Api();
-let localData = [];
 
-api.getData().then(data => localData = data);
+const root = document.getElementById("app");
+
+
+
+const input = document.querySelector('.my-form input');
+const bNumb = document.querySelector('.my-form__num');
+const bStr = document.querySelector('.my-form__str');
+const chInput = document.querySelector('.my-form__cb-box input');
+const dataBlock = document.querySelector('.data-block__data');
+
+const config = {
+     root,
+
+};
+
+
+
+let localData = [];
+Api.loadData().then(data => localData = data);
 
 function getNextData() {
     setTimeout(function () {
         api.getData().then(data => localData = data);
         getNextData();
     }, 86400);
-
 }
 
 getNextData();
@@ -54,8 +69,17 @@ const domElem = {
     dataBlock: methods.$('.data-block__data'),
 };
 
+
 methods.addEvent(domElem.bNumb, "click", methods.getElemLen);
 methods.addEvent(domElem.bStr, "click", methods.getElemStr);
+
+
+class App {
+    constructor({root, input}) {
+
+    }
+};
+new App(config);
 
 
 
