@@ -1,15 +1,10 @@
-
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 const requestURL = 'https://www.mrsoft.by/data.json';
 
-class Api {
+export default class Api {
     getData() {
-        return fetch(proxyUrl + requestURL).then(data=> console.log(data.json()))
+        return fetch(proxyUrl + requestURL)
+            .then(response => response.json())
+            .then(({data}) => data)
     }
 }
-
-
-const api = new Api;
-api.getData();
-
-

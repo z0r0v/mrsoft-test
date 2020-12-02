@@ -14,20 +14,25 @@
 </header>
 <main>
   <article>
-    <form class="my-form" action="#">
-      <input type="search" name="q" placeholder="Number or string">
-      <input type="submit" value="Number">
-      <input type="submit" value="String">
-      <div>
-        <input type="checkbox" id="scales" name="scales"
-               checked>
+    <form class="my-form">
+      <input type="search" name="q" placeholder="Number or String">
+      <input class="my-form__num" type="button" value="Number length">
+      <input class="my-form__str" type="button" value="String value">
+
+      <div class="my-form__cb-box">
+        <input type="checkbox" id="scales" name="scales" checked>
         <label for="scales">aBcDt</label>
       </div>
+
     </form>
-    <div class="data-block">Поле для вывода данных</div>
+    <div class="data-block">
+      <h2 class="data-block__heading">Block for data output:</h2>
+      <div class="data-block__data"></div>
+    </div>
   </article>
 </main>
-<!--<script src="src/js/main.js"></script>-->
-<script src="src/js/api.js"></script>
+
+<script type="module" src="src/js/main.js"></script>
+
 </body>
 </html>
