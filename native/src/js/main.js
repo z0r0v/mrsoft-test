@@ -21,53 +21,6 @@ const config = {
 };
 
 
-
-let localData = [];
-Api.loadData().then(data => localData = data);
-const methods = {
-    $: function (elem) {
-        return document.querySelector(elem);
-    },
-    getElemLen: function () {
-        let results = localData.filter(item => item.length > domElem.input.value);
-        methods.addElem(results);
-    },
-    getElemStr: function () {
-        if (domElem.chInput.checked) {
-            let results = localData.filter(item => item.indexOf(domElem.input.value) != -1);
-            methods.addElem(results);
-        } else {
-            let results = localData.filter(item => item.toLowerCase().indexOf(domElem.input.value) != -1);
-            methods.addElem(results);
-
-        }
-    },
-    addElem: function (result) {
-        domElem.dataBlock.innerHTML = "";
-        result.forEach(function (elem) {
-            const p = document.createElement('p');
-            p.classList.add("data-block__data--item");
-            p.innerText = elem;
-            domElem.dataBlock.appendChild(p);
-        })
-    },
-    addEvent: function (elem, typeEvent, callback) {
-        elem.addEventListener(typeEvent, callback);
-    },
-};
-const domElem = {
-    input: methods.$('.my-form input'),
-    bNumb: methods.$('.my-form__num'),
-    bStr: methods.$('.my-form__str'),
-    chInput: methods.$('.my-form__cb-box input'),
-    dataBlock: methods.$('.data-block__data'),
-};
-
-
-methods.addEvent(domElem.bNumb, "click", methods.getElemLen);
-methods.addEvent(domElem.bStr, "click", methods.getElemStr);
-
-
 class App {
     constructor({root, input, caseSensitive, buttonFindForLength, buttonFindForSubString}) {
     this.root = root;
@@ -81,9 +34,9 @@ class App {
     this.buttonFindForSubString = buttonFindForSubString;
 
     this.input.addEventListener('blur', this.handleInputBlur('string'));
-    this.caseSensitive.addEventListener();
-    this.buttonFindForLength.addEventListener();
-    this.buttonFindForSubString.addEventListener();
+    // this.caseSensitive.addEventListener();
+    // this.buttonFindForLength.addEventListener();
+    // this.buttonFindForSubString.addEventListener();
 
     this.loadData();
 
@@ -91,7 +44,6 @@ class App {
 
     handleInputBlur = (key) => (evt) => {
         const value = evt.target.value;
-
         this.changeFilter(key, value);
     };
 
@@ -105,7 +57,7 @@ class App {
 
     loadData() {
         Api.loadData().then(data => {
-           this.loadedData = data;
+           this.loadData = data;
            this.data = data;
         }).then(() => this.render());
     }
