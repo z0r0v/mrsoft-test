@@ -1,34 +1,29 @@
 import Api from "./api.js";
 
-const root = document.getElementById("app");
 
+function $(elem) {
+    return document.getElementById(elem);
+}
 
+const root = $("app");
+const input = $("input");
+const checkBox = $('checkBox');
+const buttonFindForLength = $('buttonFindForLength');
+const buttonFindForSubString = $('buttonFindForSubString');
 
-const input = document.querySelector('.my-form input');
-const bNumb = document.querySelector('.my-form__num');
-const bStr = document.querySelector('.my-form__str');
-const chInput = document.querySelector('.my-form__cb-box input');
-const dataBlock = document.querySelector('.data-block__data');
 
 const config = {
-     root,
-
+    root,
+    input,
+    caseSensitive: checkBox,
+    buttonFindForLength,
+    buttonFindForSubString,
 };
 
 
 
 let localData = [];
 Api.loadData().then(data => localData = data);
-
-function getNextData() {
-    setTimeout(function () {
-        api.getData().then(data => localData = data);
-        getNextData();
-    }, 86400);
-}
-
-getNextData();
-
 const methods = {
     $: function (elem) {
         return document.querySelector(elem);
@@ -60,7 +55,6 @@ const methods = {
         elem.addEventListener(typeEvent, callback);
     },
 };
-
 const domElem = {
     input: methods.$('.my-form input'),
     bNumb: methods.$('.my-form__num'),
@@ -75,10 +69,76 @@ methods.addEvent(domElem.bStr, "click", methods.getElemStr);
 
 
 class App {
-    constructor({root, input}) {
+    constructor({root, input, caseSensitive, buttonFindForLength, buttonFindForSubString}) {
+    this.root = root;
+    this.loadedData = [];
+    this.data = [];
+    this.filter = null;
+
+    this.caseSensitive = caseSensitive;
+    this.input = input;
+    this.buttonFindForLength = buttonFindForLength;
+    this.buttonFindForSubString = buttonFindForSubString;
+
+    this.input.addEventListener('blur', this.handleInputBlur('string'));
+    this.caseSensitive.addEventListener();
+    this.buttonFindForLength.addEventListener();
+    this.buttonFindForSubString.addEventListener();
+
+    this.loadData();
 
     }
-};
+
+    handleInputBlur = (key) => (evt) => {
+        const value = evt.target.value;
+
+        this.changeFilter(key, value);
+    };
+
+
+    changeFilter(key, value) {
+        this.filter = {
+            ...this.filter,
+            [key]: value
+        }
+    }
+
+    loadData() {
+        Api.loadData().then(data => {
+           this.loadedData = data;
+           this.data = data;
+        }).then(() => this.render());
+    }
+
+    renderList() {
+        const items = this.data;
+        let list = $('list');
+
+        if(list) {
+            list.innerHTML = '';
+        } else {
+            list = document.createElement('div');
+            list.id = 'list';
+            list.classList.add('list');
+        }
+
+        items.map(it => {
+            const item = document.createElement('div');
+            item.classList.add('list-item');
+            item.innerText = it;
+            list.appendChild(item);
+        });
+        return list;
+
+
+    }
+    render() {
+        const listOutput = this.renderList();
+
+        this.root.appendChild(listOutput);
+    }
+}
+
 new App(config);
 
 
