@@ -2,9 +2,7 @@ import Api from "./api.js";
 const api = new Api();
 let localData = [];
 
-
 api.getData().then(data => localData = data);
-
 
 function getNextData() {
     setTimeout(function () {
@@ -16,8 +14,6 @@ function getNextData() {
 
 getNextData();
 
-
-
 const methods = {
     $: function (elem) {
         return document.querySelector(elem);
@@ -28,10 +24,10 @@ const methods = {
     },
     getElemStr: function () {
         if (domElem.chInput.checked) {
-            let results = localData.filter(item => item === domElem.input.value);
+            let results = localData.filter(item => item.indexOf(domElem.input.value) != -1);
             methods.addElem(results);
         } else {
-            let results = localData.filter(item => item.toLowerCase() === domElem.input.value.toLowerCase());
+            let results = localData.filter(item => item.toLowerCase().indexOf(domElem.input.value) != -1);
             methods.addElem(results);
 
         }
@@ -57,7 +53,6 @@ const domElem = {
     chInput: methods.$('.my-form__cb-box input'),
     dataBlock: methods.$('.data-block__data'),
 };
-
 
 methods.addEvent(domElem.bNumb, "click", methods.getElemLen);
 methods.addEvent(domElem.bStr, "click", methods.getElemStr);
