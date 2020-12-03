@@ -1,0 +1,33 @@
+#app {
+  max-width: 340px;
+  padding: 15px;
+  margin: 0 auto;
+  font-size: 18px;
+  color: #7a7a7a;
+}
+
+#app, #input, button, #list {
+  border-radius: 5px;
+  border: 1px solid #7a7a7a;
+}
+
+#app button {
+  width: 49%;
+  background-color: white;
+  color: #7a7a7a;
+}
+
+#app #input, button {
+    height: 25px;
+    margin-bottom: 10px;
+}
+
+#app #checkBox{
+  margin-bottom: 15px;
+}
+
+#app #list{
+  padding: 0 10px;
+  background-color: #fcfcfc;
+}
+
