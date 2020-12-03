@@ -23,6 +23,7 @@ export default class App extends Component {
 
     render() {
         this.loadData();
+
         console.log(this.state);
 
 
