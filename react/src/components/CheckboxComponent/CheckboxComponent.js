@@ -4,7 +4,6 @@ const Checkbox = () => {
 
     const [x, setX] = useState(true);
     const soldCheckbox = ({ target: { checked } }) => {
-        console.log(x, checked);
         setX(checked);
     };
 
