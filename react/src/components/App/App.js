@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 //components
 import Search from "../SearchComponent";
 import Checkbox from "../CheckboxComponent";
-import ButtonsBox from "../ButtonsBox";
+
 
 
 export default class App extends Component {
@@ -18,27 +18,26 @@ export default class App extends Component {
             data: [],
             string: '',
             checked: true,
-            findForLength: null,
-            findForSubString: null,
+            filter: {
+                string: '',
+                caseSensitive: false
+            }
         }
+
     }
 
     componentDidMount() {
         this.loadData();
     }
 
-    componentDidUpdate() {
-        // тут перендер с фильрами
-    }
-
     renderList = () => {
         let output = null;
 
-        const {loadedData} = this.state;
+        const {data} = this.state;
 
-        if(loadedData) {
-            output = loadedData.map(item => (
-                <p key={item.toString()} className="list-item" >
+        if(data) {
+            output = data.map(item => (
+                <p key={item.toString()} className="list-item">
                     {item}
                 </p>
             ))
@@ -50,13 +49,14 @@ export default class App extends Component {
     loadData() {
         Api.loadData().then(data => {
             this.setState({
-                loadedData: data
+                loadedData: data,
+                data
             });
         });
     };
 
     handleSearchChange = (value) => {
-      this.setState({string:value})
+      this.setState({string:value});
     };
 
     handleCheckboxChange = (checked)=> {
@@ -64,9 +64,38 @@ export default class App extends Component {
     };
 
 
+    handleFindForLength = () => {
+        this.filteredData();
+    };
+
+
+
+    handleFindForSubString = () => {
+
+    };
+
+
+    changeFilter(key, value) {
+        const {filter} = this.state;
+        filter = {
+            ...filter,
+            [key]: value
+        }
+    };
+
+
+    filteredData() {
+        const {loadedData, string} = this.state;
+        const length = parseInt(string, 10);
+        const filteredData = loadedData.filter(it => it.length > length);
+         this.setState({data: filteredData});
+    };
+
+
+
     render() {
         const listOut = this.renderList();
-        const {string, checked, findForLength, findForSubString} = this.state;
+        const {string, checked} = this.state;
 
         return (
             <div className="App">
@@ -77,14 +106,15 @@ export default class App extends Component {
                 />
 
                 <Checkbox
+                    title="case-sensitive"
                     checked={checked}
                     onChange={this.handleCheckboxChange}
                 />
 
-                <ButtonsBox
-                    findForLength={findForLength}
-                    findForSubString={findForSubString}
-                />
+                <div className="buttons-box">
+                    <button id="buttonFindForLength" onClick={this.handleFindForLength}>Number</button>
+                    <button id="buttonFindForSubString" onClick={this.handleFindForSubString}>String</button>
+                </div>
 
 
                 <div className='box-items' >

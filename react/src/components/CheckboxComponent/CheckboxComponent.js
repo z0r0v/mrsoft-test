@@ -9,6 +9,7 @@ export default class Checkbox extends Component {
 
         this.state = {
             checked: props.checked,
+            title: props.title,
         }
     }
 
@@ -24,10 +25,10 @@ export default class Checkbox extends Component {
     };
 
     render() {
-        const {checked} = this.state;
+        const {checked, title} = this.state;
         return (
             <div>
-                <label htmlFor="checkbox">case-sensitive</label>
+                <label htmlFor="checkbox">{title}</label>
                 <input type="checkbox" id="checkBox"
                        checked={checked}
                        onChange={this.handleCheckboxChange}
