@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, {Component} from "react";
 import './CheckboxStyle.scss';
-const Checkbox = () => {
 
-    const [x, setX] = useState(true);
-    const soldCheckbox = ({ target: { checked } }) => {
-        setX(checked);
+
+
+export default class Checkbox extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            checked: props.checked,
+        }
+    }
+
+    handleCheckboxChange = (event)=> {
+        const {checked} = event.target;
+        const {onChange} = this.props;
+
+        if(onChange) {
+            onChange(checked);
+        }
+
+        this.setState({checked});
     };
 
-    return (
-        <div>
-            <label htmlFor="checkbox">case-sensitive</label>
-            <input type="checkbox" id="checkBox" checked={x} onChange={soldCheckbox}/>
-        </div>
-    );
+    render() {
+        const {checked} = this.state;
+        return (
+            <div>
+                <label htmlFor="checkbox">case-sensitive</label>
+                <input type="checkbox" id="checkBox"
+                       checked={checked}
+                       onChange={this.handleCheckboxChange}
+                />
+            </div>
+        );
+    }
+
+
 };
-export default Checkbox;
+
+

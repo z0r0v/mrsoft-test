@@ -16,6 +16,10 @@ export default class App extends Component {
         this.state =  {
             loadedData: [],
             data: [],
+            string: '',
+            checked: true,
+            findForLength: null,
+            findForSubString: null,
         }
     }
 
@@ -23,6 +27,9 @@ export default class App extends Component {
         this.loadData();
     }
 
+    componentDidUpdate() {
+        // тут перендер с фильрами
+    }
 
     renderList = () => {
         let output = null;
@@ -31,7 +38,7 @@ export default class App extends Component {
 
         if(loadedData) {
             output = loadedData.map(item => (
-                <p className="list-item" key={item.index}>
+                <p key={item.toString()} className="list-item" >
                     {item}
                 </p>
             ))
@@ -48,16 +55,43 @@ export default class App extends Component {
         });
     };
 
+    handleSearchChange = (value) => {
+      this.setState({string:value})
+    };
+
+    handleCheckboxChange = (checked)=> {
+        this.setState({checked:checked});
+    };
+
+
     render() {
         const listOut = this.renderList();
+        const {string, checked, findForLength, findForSubString} = this.state;
+
         return (
             <div className="App">
-                <Search/>
-                <Checkbox/>
-                <ButtonsBox/>
+
+                <Search
+                value={string}
+                onChange={this.handleSearchChange}
+                />
+
+                <Checkbox
+                    checked={checked}
+                    onChange={this.handleCheckboxChange}
+                />
+
+                <ButtonsBox
+                    findForLength={findForLength}
+                    findForSubString={findForSubString}
+                />
+
+
                 <div className='box-items' >
                     {listOut}
                 </div>
+
+
             </div>
         )
     }

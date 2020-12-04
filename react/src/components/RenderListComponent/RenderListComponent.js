@@ -1,13 +1,17 @@
-import React from "react";
+import React, {Component} from "react";
 import './RenderListComponent.js.scss';
 
-const RenderListComponent = () => {
-    return (
-   <div className="asd">
-        123
-   </div>
+export default class RenderListComponent extends Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <div className="asd">
+                123
+            </div>
 
-    );
+        );
+    }
 };
 
-export default RenderListComponent;
