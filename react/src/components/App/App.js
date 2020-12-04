@@ -10,31 +10,58 @@ import ButtonsBox from "../ButtonsBox";
 
 
 export default class App extends Component {
-    state = {
-        loadedData: [],
+    constructor(props) {
+        super(props);
+
+        this.state =  {
+            loadedData: [],
+            data: [],
+        }
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+
+    renderList = () => {
+        let output = null;
+
+        const {loadedData} = this.state;
+
+        if(loadedData) {
+            output = loadedData.map(item => (
+                <p className="list-item" key={item.index}>
+                    {item}
+                </p>
+            ))
+        }
+
+        return output;
     };
 
     loadData() {
         Api.loadData().then(data => {
-            this.setState(data);
+            this.setState({
+                loadedData: data
+            });
         });
     };
 
-
     render() {
-        this.loadData();
-
-        console.log(this.state);
-
-
-        return(
+        const listOut = this.renderList();
+        return (
             <div className="App">
                 <Search/>
                 <Checkbox/>
                 <ButtonsBox/>
+                <div className='box-items' >
+                    {listOut}
+                </div>
             </div>
         )
     }
+
 };
 
 
