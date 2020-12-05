@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 import './CheckboxStyle.scss';
 
@@ -8,16 +8,16 @@ export default class Checkbox extends Component {
 
         this.state = {
             checked: props.checked || false,
-            title: props.title || "",
+            title: props.title || '',
         }
     }
 
     render() {
         const { checked, title } = this.state;
         return (
-            <div className="box-checkbox">
-                <label htmlFor="checkbox">{title}</label>
-                <input type="checkbox" id="checkBox"
+            <div className='box-checkbox'>
+                <label htmlFor='checkbox'>{title}</label>
+                <input type='checkbox' id='checkBox'
                        checked={checked}
                        onChange={this.handleCheckboxChange}
                 />

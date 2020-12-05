@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 
 import './SearchStyle.scss';
 
@@ -16,9 +16,9 @@ export default class Search extends Component {
         const { value, label } = this.state;
 
         return (
-            <div className="search">
-                <label htmlFor="input">{label}</label>
-                <input type="text" id="input" placeholder="Number or String"
+            <div className='search'>
+                <label htmlFor='input'>{label}</label>
+                <input type='text' id='input' placeholder='Number or String'
                        value={value}
                        onChange={this.handleInputChange}/>
             </div>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Api from "../../apiJS/api";
-import Search from "../SearchComponent";
-import Checkbox from "../CheckboxComponent";
+import Api from '../../commons/api';
+import Search from '../Search';
+import Checkbox from '../Checkbox';
 
 import './App.scss';
 
@@ -28,20 +28,20 @@ export default class App extends Component {
         const listOut = this.renderList();
 
         return (
-            <div className="App">
+            <div className='App'>
                 <Search
-                    label="Search: "
+                    label='Search: '
                     value={value}
                     onChange={this.handleSearchChange}
                 />
                 <Checkbox
-                    title="case-sensitive"
+                    title='case-sensitive'
                     checked={caseSensitive}
                     onChange={this.handleCheckboxChange}
                 />
-                <div className="buttons-box">
-                    <button id="buttonFindForLength" onClick={this.handleFindForLengthClick}>Number</button>
-                    <button id="buttonFindForSubString" onClick={this.handleFindForSubStringClick}>String</button>
+                <div className='buttons-box'>
+                    <button id='buttonFindForLength' onClick={this.handleFindForLengthClick}>Number</button>
+                    <button id='buttonFindForSubString' onClick={this.handleFindForSubStringClick}>String</button>
                 </div>
                 <div className='box-items'>
                     {listOut}
@@ -57,7 +57,7 @@ export default class App extends Component {
 
         if (data) {
             output = data.map(item => (
-                <p key={`${item}${index++}`} className="list-item">
+                <p key={`${item}${index++}`} className='list-item'>
                     {item}
                 </p>
             ))
@@ -71,7 +71,7 @@ export default class App extends Component {
     };
 
     handleCheckboxChange = (checked) => {
-        this.changeFilter("caseSensitive", checked);
+        this.changeFilter('caseSensitive', checked);
     };
 
 
