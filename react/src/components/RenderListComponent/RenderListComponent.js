@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import './RenderListComponent.js.scss';
 
 export default class RenderListComponent extends Component {
