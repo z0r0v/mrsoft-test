@@ -1,49 +1,122 @@
-import './App.scss';
-import Api from "../../js/api";
-
 import React, {Component} from 'react';
-
-//components
+import Api from "../../apiJS/api";
 import Search from "../SearchComponent";
 import Checkbox from "../CheckboxComponent";
 
-
+import './App.scss';
 
 export default class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state =  {
+        this.state = {
             loadedData: [],
             data: [],
-            string: '',
-            checked: true,
             filter: {
-                string: '',
-                caseSensitive: false
+                value: '',
+                caseSensitive: true
             }
         }
-
     }
 
     componentDidMount() {
         this.loadData();
     }
 
+    render() {
+        const { filter: { value, caseSensitive } } = this.state;
+        const listOut = this.renderList();
+
+        return (
+            <div className="App">
+                <Search
+                    label="Search: "
+                    value={value}
+                    onChange={this.handleSearchChange}
+                />
+                <Checkbox
+                    title="case-sensitive"
+                    checked={caseSensitive}
+                    onChange={this.handleCheckboxChange}
+                />
+                <div className="buttons-box">
+                    <button id="buttonFindForLength" onClick={this.handleFindForLengthClick}>Number</button>
+                    <button id="buttonFindForSubString" onClick={this.handleFindForSubStringClick}>String</button>
+                </div>
+                <div className='box-items'>
+                    {listOut}
+                </div>
+            </div>
+        )
+    }
+
     renderList = () => {
         let output = null;
-
+        let index = 0;
         const { data } = this.state;
 
-        if(data) {
+        if (data) {
             output = data.map(item => (
-                <p key={ item.toString() } className="list-item">
-                    { item }
+                <p key={`${item}${index++}`} className="list-item">
+                    {item}
                 </p>
             ))
         }
 
         return output;
+    };
+
+    handleSearchChange = (value) => {
+        this.changeFilter('value', value);
+    };
+
+    handleCheckboxChange = (checked) => {
+        this.changeFilter("caseSensitive", checked);
+    };
+
+
+    handleFindForLengthClick = () => {
+        this.filteredDataLength();
+    };
+
+
+    handleFindForSubStringClick = () => {
+        this.filteredDataSubStr()
+    };
+
+
+    changeFilter(key, value) {
+        const { filter } = this.state;
+        const newFilter = {
+            ...filter,
+            [key]: value
+        };
+
+        this.setState({ filter: newFilter });
+    };
+
+
+    filteredDataLength() {
+        const { filter: { value }, loadedData } = this.state;
+        const number = parseInt(value, 10);
+
+        if (!isNaN(number)) {
+            const filteredData = loadedData.filter(it => it.length > number);
+
+            this.setState({ data: filteredData });
+        }
+    };
+
+    filteredDataSubStr() {
+        const { filter: { caseSensitive, value }, loadedData } = this.state;
+        const flag = !caseSensitive ? 'i' : '';
+        const regexp = new RegExp(value, flag);
+
+        if (value) {
+            const filteredData = loadedData.filter(it => regexp.test(it));
+
+            this.setState({ data: filteredData });
+        }
     };
 
     loadData() {
@@ -54,94 +127,6 @@ export default class App extends Component {
             });
         });
     };
-
-    handleSearchChange = (value) => {
-        this.setState({ string:value });
-
-        this.changeFilter('string', value);
-    };
-
-    handleCheckboxChange = (checked)=> {
-        this.setState({ checked:checked });
-        this.setState({filter:{caseSensitive:checked}});
-        this.changeFilter('caseSensitive', checked);
-    };
-
-
-    handleFindForLength = () => {
-        this.filteredDataLength();
-    };
-
-
-    handleFindForSubString = () => {
-        this.filteredDataSubStr()
-    };
-
-
-    changeFilter(key, value) {
-
-        const { filter } = this.state;
-        const newFilter = {
-            ...filter,
-            [key]: value
-        };
-
-        this.setState({ filter: newFilter })
-    };
-
-
-    filteredDataLength() {
-        const { loadedData, string } = this.state;
-        if(string) {
-            const length = parseInt(string, 10);
-            const filteredData = loadedData.filter(it => it.length > length);
-            this.setState({ data: filteredData });
-
-        }
-    };
-
-
-    filteredDataSubStr() {
-        const { string, filter, loadedData } = this.state;
-        const flag = filter.caseSensitive ? 'i' : '';
-        const regexp = new RegExp(string, flag);
-        if (string) {
-            const filteredData = loadedData.filter(it => regexp.test(it));
-            this.setState({ data: filteredData });
-        }
-    };
-
-
-
-    render() {
-        const listOut = this.renderList();
-        const { string, checked } = this.state;
-
-        return (
-            <div className="App">
-                <Search
-                value={ string }
-                onChange={ this.handleSearchChange }
-                />
-
-                <Checkbox
-                    title="case-sensitive"
-                    checked={ checked }
-                    onChange={ this.handleCheckboxChange }
-                />
-
-                <div className="buttons-box">
-                    <button id="buttonFindForLength" onClick={ this.handleFindForLength }>Number</button>
-                    <button id="buttonFindForSubString" onClick={ this.handleFindForSubString }>String</button>
-                </div>
-
-                <div className='box-items' >
-                    { listOut }
-                </div>
-            </div>
-        )
-    }
-
 };
 
 

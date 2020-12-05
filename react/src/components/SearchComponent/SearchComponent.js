@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
+
 import './SearchStyle.scss';
 
 export default class Search extends Component {
@@ -6,32 +7,34 @@ export default class Search extends Component {
         super(props);
 
         this.state = {
-            value: props.value
+            value: props.value || '',
+            label: props.label || '',
         }
+    }
 
+    render() {
+        const { value, label } = this.state;
+
+        return (
+            <div className="search">
+                <label htmlFor="input">{label}</label>
+                <input type="text" id="input" placeholder="Number or String"
+                       value={value}
+                       onChange={this.handleInputChange}/>
+            </div>
+        );
     }
 
     handleInputChange = (evt) => {
         const { value } = evt.target;
         const { onChange } = this.props;
 
-        if(onChange) {
+        if (onChange) {
             onChange(value);
         }
 
         this.setState({ value });
     };
-
-    render() {
-        const { value } = this.state;
-        return (
-            <div className="search">
-                <label htmlFor="input">Search: </label>
-                <input type="text" id="input" placeholder="Number or String" value={ value } onChange={this.handleInputChange}/>
-            </div>
-        );
-    }
-
 };
 
 

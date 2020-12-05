@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import './CheckboxStyle.scss';
 
 export default class Checkbox extends Component {
@@ -6,9 +7,22 @@ export default class Checkbox extends Component {
         super(props);
 
         this.state = {
-            checked: props.checked,
-            title: props.title,
+            checked: props.checked || false,
+            title: props.title || "",
         }
+    }
+
+    render() {
+        const { checked, title } = this.state;
+        return (
+            <div className="box-checkbox">
+                <label htmlFor="checkbox">{title}</label>
+                <input type="checkbox" id="checkBox"
+                       checked={checked}
+                       onChange={this.handleCheckboxChange}
+                />
+            </div>
+        );
     }
 
     handleCheckboxChange = (event)=> {
@@ -21,21 +35,6 @@ export default class Checkbox extends Component {
 
         this.setState({ checked });
     };
-
-    render() {
-        const { checked, title } = this.state;
-        return (
-            <div className="box-checkbox">
-                <label htmlFor="checkbox">{ title }</label>
-                <input type="checkbox" id="checkBox"
-                       checked={ checked }
-                       onChange={ this.handleCheckboxChange }
-                />
-            </div>
-        );
-    }
-
-
 };
 
 

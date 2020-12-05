@@ -1,18 +1,40 @@
-.App {
-   max-width: 340px;
-   margin: 20px auto;
-   padding: 40px 0;
-   border: 1px solid #7a7a7a;
-   text-align: center;
-   font-size: 18px;
-   color: #7a7a7a;
- }
-.buttons-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0 15px;
-  button {
-    width: 45%;
-  }
+body {
+  background-color: #fcfcfc;
 }
+
+.App {
+  max-width: 340px;
+  margin: 20px auto;
+  padding: 40px 0;
+  border: 1px solid #7a7a7a;
+  text-align: center;
+  font-size: 18px;
+  color: #7a7a7a;
+  background-color: white;
+
+  input, button, .box-items {
+    border-radius: 5px;
+    border: 1px solid #7a7a7a;
+  }
+
+  .buttons-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 15px;
+    button {
+      width: 45%;
+    }
+  }
+
+  .box-items {
+    margin: 20px;
+    background-color: #fcfcfc;
+  }
+
+  button, #input {
+    height: 25px;
+  }
+
+}
+
