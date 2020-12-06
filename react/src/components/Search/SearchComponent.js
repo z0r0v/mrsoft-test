@@ -42,5 +42,3 @@ export default class Search extends Component {
         this.setState({ value });
     };
 };
-
-

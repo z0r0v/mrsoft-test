@@ -43,5 +43,3 @@ export default class Checkbox extends Component {
         this.setState({ checked });
     };
 };
-
-
