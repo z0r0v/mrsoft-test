@@ -13,9 +13,9 @@ export default class Search extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.value !== this.state.value) {
-            this.setState({ value: this.props.value })
-        }
+        const {value, label} = this.state;
+        this.changeStateProps(this.props.value, this.state.value, value);
+        this.changeStateProps(this.props.label, this.state.label, label);
     }
 
     render() {
@@ -40,5 +40,11 @@ export default class Search extends Component {
         }
 
         this.setState({ value });
+    };
+
+    changeStateProps(props, state, key) {
+        if(props !== state) {
+            this.setState({ [key]:props });
+        }
     };
 };
