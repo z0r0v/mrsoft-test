@@ -1,9 +1,9 @@
-import Api from "./api.js";
+import Api from './api.js';
 import $ from './helper.js';
 
 
-const root = $("app");
-const input = $("input");
+const root = $('app');
+const input = $('input');
 const checkBox = $('checkBox');
 const buttonFindForLength = $('buttonFindForLength');
 const buttonFindForSubString = $('buttonFindForSubString');
@@ -70,7 +70,7 @@ class App {
     };
 
     searchBySubString() {
-        const {string, caseSensitive} = this.filter;
+        const { string, caseSensitive } = this.filter;
         const flag = caseSensitive ? 'i' : '';
         const regexp = new RegExp(string, flag);
 

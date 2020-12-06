@@ -6,6 +6,6 @@ const Api = {};
 
 Api.loadData = () => fetch(url)
     .then(response => response.json())
-    .then(({data}) => data);
+    .then(({ data }) => data);
 
 export default Api;
