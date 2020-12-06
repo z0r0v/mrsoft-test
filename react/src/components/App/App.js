@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Api from '../../commons/api';
 import Search from '../Search';
 import Checkbox from '../Checkbox';
@@ -52,12 +52,11 @@ export default class App extends Component {
 
     renderList = () => {
         let output = null;
-        let index = 0;
         const { data } = this.state;
 
         if (data) {
-            output = data.map(item => (
-                <p key={`${item}${index++}`} className='list-item'>
+            output = data.map((item, index) => (
+                <p key={`${item}${index}`} className="list-item">
                     {item}
                 </p>
             ))
@@ -74,16 +73,13 @@ export default class App extends Component {
         this.changeFilter('caseSensitive', checked);
     };
 
-
     handleFindForLengthClick = () => {
         this.filteredDataLength();
     };
 
-
     handleFindForSubStringClick = () => {
         this.filteredDataSubStr()
     };
-
 
     changeFilter(key, value) {
         const { filter } = this.state;
@@ -94,7 +90,6 @@ export default class App extends Component {
 
         this.setState({ filter: newFilter });
     };
-
 
     filteredDataLength() {
         const { filter: { value }, loadedData } = this.state;

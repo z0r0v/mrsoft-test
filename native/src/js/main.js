@@ -126,16 +126,3 @@ class App {
 }
 
 new App(config);
-
-
-
-
-
-
-
-
-
-
-
-
-

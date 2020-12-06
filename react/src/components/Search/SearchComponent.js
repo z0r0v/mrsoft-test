@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import './SearchStyle.scss';
 
@@ -9,6 +9,12 @@ export default class Search extends Component {
         this.state = {
             value: props.value || '',
             label: props.label || '',
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.checked !== this.state.checked) {
+            this.setState({ checked: this.props.checked })
         }
     }
 

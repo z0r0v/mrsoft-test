@@ -12,8 +12,15 @@ export default class Checkbox extends Component {
         }
     }
 
+    componentDidUpdate() {
+        if (this.props.checked !== this.state.checked) {
+            this.setState({ checked: this.props.checked })
+        }
+    }
+
     render() {
         const { checked, title } = this.state;
+
         return (
             <div className='box-checkbox'>
                 <label htmlFor='checkbox'>{title}</label>
@@ -25,11 +32,11 @@ export default class Checkbox extends Component {
         );
     }
 
-    handleCheckboxChange = (event)=> {
+    handleCheckboxChange = (event) => {
         const { checked } = event.target;
         const { onChange } = this.props;
 
-        if(onChange) {
+        if (onChange) {
             onChange(checked);
         }
 
