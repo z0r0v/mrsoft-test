@@ -13,8 +13,8 @@ export default class Search extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.checked !== this.state.checked) {
-            this.setState({ checked: this.props.checked })
+        if (this.props.value !== this.state.value) {
+            this.setState({ value: this.props.value })
         }
     }
 
